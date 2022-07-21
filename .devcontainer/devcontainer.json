@@ -1,11 +1,12 @@
 {
   "name": "Docker from Docker",
-  "context": "..",
 
   // .devcontainer/Dockerfile を指定します
   "dockerFile": "./Dockerfile",
 
-  // Windows 10 Proだと3000や5000が使えなくて罰なので30000とか50000にしておきます
+  // Windows 10 Proだと管理者権限でVSCodeを起動しないと
+  // port 3000や5000が使えなくて罰なので
+  // port 30000とか50000にしています……
   "forwardPorts": [30000, 50000],
 
   // devcontainerのユーザーをroot以外にします（推奨）

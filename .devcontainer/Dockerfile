@@ -6,9 +6,9 @@ FROM ubuntu:22.04
 # curlも次のステップで使うので必須です
 RUN apt update && apt install -y \
     git \
+    curl \
     vim \
     htop \
-    curl \
     jq
 
 # Docker from DockerするためにDockerをインストールします
@@ -24,9 +24,9 @@ EXPOSE 50000
 
 # 実際に開発に使うroot以外のユーザーを作成します
 RUN useradd -m user
-ARG NONROOT_USER=user
 
 # dockerコマンドを上記のroot以外のユーザーでも使えるようにするためにグチャグチャやってます
+ARG NONROOT_USER=user
 RUN echo "#!/bin/sh\n\
     sudoIf() { if [ \"\$(id -u)\" -ne 0 ]; then sudo \"\$@\"; else \"\$@\"; fi }\n\
     SOCKET_GID=\$(stat -c '%g' /var/run/docker.sock) \n\
