@@ -1,16 +1,19 @@
 # 開発用コンテナなのでubuntuでええやろ
 FROM ubuntu:22.04
 
-# Docker from DockerするためにDockerをインストールします
-RUN curl -fsSL https://get.docker.com | sh
 
 # 開発環境に必要なパッケージなどはここでインストールしておきます
+# gitは必須です
+# curlを使うので必須です
 RUN apt update && apt install -y \
     git \
     vim \
     htop \
     curl \
     jq
+
+# Docker from DockerするためにDockerをインストールします
+RUN curl -fsSL https://get.docker.com | sh
 
 # たとえばNode.jsのプロジェクトならここで開発用コンテナにもインストールしておく
 RUN curl -Ls https://deb.nodesource.com/setup_18.x | bash
