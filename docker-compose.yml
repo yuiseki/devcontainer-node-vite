@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      # ここが重要
+      # Docker from Dockerでは .:/app と書くと正常に動かない
+      # 相対パスではなく、フルパスで書く必要がある
+      # 一方でDockerの外でも動かしたいので、
+      # デフォルト値として相対パスを指定している
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-.}/frontend
+        target: /app
+    command: npm run dev
+    ports:
+      - 30000:30000
+    networks:
+      - myapp
+
+networks:
+  myapp:
+    name: myapp

@@ -1,0 +1,47 @@
+{
+  "name": "Docker from Docker",
+  "context": "..",
+
+  // .devcontainer/Dockerfile を指定します
+  "dockerFile": "./Dockerfile",
+
+  // Windows 10 Proだと3000や5000が使えなくて罰なので30000とか50000にしておきます
+  "forwardPorts": [30000, 50000],
+
+  // devcontainerのユーザーをroot以外にします（推奨）
+  "remoteUser": "user",
+
+  // devcontainer起動時にdocker runに渡されるオプション
+  "runArgs": ["--init"],
+
+  // Docker from Dockerを実現するためにはこれが必要です
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+
+  // これを指定しないとDockerfileのCMDが勝手に
+  // "while sleep 1000; do :; done"
+  // に書き換えられます（マジ）
+  "overrideCommand": false,
+
+  // Docker from Dockerでホストファイルをマウントするために必要です
+  "remoteEnv": {
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  },
+
+  // 私はGNUを信仰しているのでデフォルトのシェルをbashにしていますがここはお好みでどうぞ
+  // ただしデフォルトのシェルを指定しないと/bin/shになって結構過酷です
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true
+      }
+    }
+  }
+}
