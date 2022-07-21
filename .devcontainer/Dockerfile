@@ -6,6 +6,7 @@ RUN curl -fsSL https://get.docker.com | sh
 
 # 開発環境に必要なパッケージなどはここでインストールしておきます
 RUN apt update && apt install -y \
+    git \
     vim \
     htop \
     curl \
