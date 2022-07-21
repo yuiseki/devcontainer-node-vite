@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 
 # 開発環境に必要なパッケージなどはここでインストールしておきます
 # gitは必須です
-# curlを使うので必須です
+# 次のステップでcurlを使うので必須です
 RUN apt update && apt install -y \
     git \
     vim \
